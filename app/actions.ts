@@ -1,12 +1,14 @@
 import { createClient } from '@/app/utils/supabase/server'
 import { Food } from './types'
+import { forbidden, unauthorized } from 'next/navigation'
 
 export const fetchFoods = async (): Promise<Food[] | null> => {
   const supabase = await createClient()
   const {
     data: { user }
   } = await supabase.auth.getUser()
-  if (!user) throw new Error('User not authenticated')
+  // redirects to unauthorized if no user
+  if (!user) unauthorized()
 
   const { data, error } = await supabase
     .from('Food')
@@ -16,10 +18,8 @@ export const fetchFoods = async (): Promise<Food[] | null> => {
 
   if (error) {
     console.error('Error fetching foods:', error)
-    return null
   }
 
-  // console.log(data);
   return data
 }
 
@@ -28,7 +28,8 @@ export const createFood = async (food: Omit<Food, 'id' | 'user_id'>): Promise<vo
   const {
     data: { user }
   } = await supabase.auth.getUser()
-  if (!user) throw new Error('User not authenticated')
+  // redirects to unauthorized if no user
+  if (!user) unauthorized()
 
   const newFood = { ...food, user_id: user.id }
 
@@ -44,21 +45,31 @@ export const updateFood = async (food: Food): Promise<void> => {
   if (!food.id) throw new Error('Food ID is required for update')
 
   const supabase = await createClient()
-  const { error } = await supabase.from('Food').update(food).eq('id', food.id)
+  const { error, count } = await supabase.from('Food').update(food).eq('id', food.id)
 
   if (error) {
     console.error('Error updating food:', error)
     throw error
   }
+
+  if (count === 0) {
+    console.warn('No rows updated, possible invalid ID or insufficient permissions')
+    forbidden()
+  }
 }
 
 export const deleteFood = async (id: number): Promise<void> => {
   const supabase = await createClient()
-  const { error } = await supabase.from('Food').delete().eq('id', id)
+  const { error, count } = await supabase.from('Food').delete().eq('id', id)
 
   if (error) {
     console.error('Error deleting food:', error)
     throw error
+  }
+
+  if (count === 0) {
+    console.warn('No rows deleted, possible invalid ID or insufficient permissions')
+    forbidden()
   }
 }
 

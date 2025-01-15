@@ -1,25 +1,16 @@
 import Image from 'next/image'
 import { fetchFoods } from './actions'
+import { Food } from './types'
 
 export default async function Home() {
-  let foods
-
-  try {
-    foods = await fetchFoods()
-  } catch (error) {
-    console.error('Failed to fetch foods:', error)
+  const foods: Food[] | null = await fetchFoods()
+  if (!foods || foods.length === 0) {
     return (
       <div>
-        Error loading foods. Please{' '}
-        <a style={{ color: 'blue' }} href="/login">
-          sign-in
-        </a>
+        <h1>Food log</h1>
+        <p>No foods added yet</p>
       </div>
     )
-  }
-
-  if (!foods || foods.length === 0) {
-    return <div>No foods available.</div>
   }
 
   return (
