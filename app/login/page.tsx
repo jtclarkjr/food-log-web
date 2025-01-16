@@ -9,7 +9,7 @@ export default async function LoginPage() {
   if (data?.user) {
     return (
       <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
-        <h1>Signout</h1>
+        <h1>Signout confirm</h1>
         <form style={{ marginTop: '1rem' }} action={signout} method="POST">
           <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
             Signout
