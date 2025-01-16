@@ -21,8 +21,8 @@ export async function login(formData: FormData) {
     redirect('/auth?error=login')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/food', 'layout')
+  redirect('/food')
 }
 
 export async function signup(formData: FormData) {
@@ -41,8 +41,8 @@ export async function signup(formData: FormData) {
     redirect('/auth?error=signup')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/food', 'layout')
+  redirect('/food')
 }
 
 export async function signout() {

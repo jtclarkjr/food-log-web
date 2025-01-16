@@ -1,6 +1,8 @@
+'use server'
 import { createClient } from '@/utils/supabase/server'
 import { IFood } from '@/types'
-import { forbidden, unauthorized } from 'next/navigation'
+import { forbidden, redirect, unauthorized } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 // export const fetchFoods = async (): Promise<IFood[] | null> => {
 //   const supabase = await createClient()
@@ -73,6 +75,29 @@ export const fetchFoods = async (): Promise<IFood[] | null> => {
   return data
 }
 
+export const fetchFoodById = async (foodId: string): Promise<IFood | null> => {
+  const supabase = await createClient()
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+  // redirects to unauthorized if no user
+  if (!user) unauthorized()
+
+  const { data, error } = await supabase
+    .from('Food')
+    .select('*')
+    .eq('id', foodId)
+    .eq('user_id', user.id)
+    .single() // Ensures only one result is returned
+
+  if (error) {
+    console.error('Error fetching food by ID:', error)
+    return null
+  }
+
+  return data
+}
+
 export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<void> => {
   const supabase = await createClient()
   const {
@@ -91,11 +116,20 @@ export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<v
   }
 }
 
-export const updateFood = async (food: IFood): Promise<void> => {
-  if (!food.id) throw new Error('Food ID is required for update')
+export const updateFood = async (formData: FormData): Promise<void> => {
+  const id = Number(formData.get('id'))
+  const food: IFood = {
+    food_name: formData.get('food_name') as string,
+    restaurant: formData.get('restaurant') as string,
+    rating: Number(formData.get('rating')),
+    calories: formData.get('calories') as string,
+    protein: formData.get('protein') as string,
+    opinion: formData.get('opinion') as string
+  }
 
+  if (!id) throw new Error('Food ID is required for update')
   const supabase = await createClient()
-  const { error, count } = await supabase.from('Food').update(food).eq('id', food.id)
+  const { error, count } = await supabase.from('Food').update(food).eq('id', id)
 
   if (error) {
     console.error('Error updating food:', error)
@@ -106,6 +140,9 @@ export const updateFood = async (food: IFood): Promise<void> => {
     console.warn('No rows updated, possible invalid ID or insufficient permissions')
     forbidden()
   }
+
+  revalidatePath('/food', 'layout')
+  redirect('/food')
 }
 
 export const deleteFood = async (id: number): Promise<void> => {

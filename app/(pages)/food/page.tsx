@@ -20,18 +20,26 @@ export default async function FoodLog() {
           <ul className="food-list">
             {foods.map((food) => (
               <li className="food-card" key={food.id}>
-                <h2>{food.food_name}</h2>
-                <p>
-                  <i>{new Date(food.created_at).toLocaleDateString()}</i>
-                </p>
-                <p>Restaurant: {food.restaurant}</p>
-                <p>Rating: {food.rating}</p>
-                <p>Calories: {food.calories}</p>
-                <p>Protein: {food.protein}</p>
-                <p>Opinion: {food.opinion}</p>
-                {food.image && (
-                  <Image src={food.image} alt={food.food_name || 'food'} height={200} width={200} />
-                )}
+                <Link href={`/food/${food.id}`}>
+                  <h2>{food.food_name}</h2>
+                  <p>
+                    <i>{new Date(food.created_at).toLocaleDateString()}</i>
+                  </p>
+                  <p>Restaurant: {food.restaurant}</p>
+                  <p>Rating: {food.rating}</p>
+                  <p>Calories: {food.calories}</p>
+                  <p>Protein: {food.protein}</p>
+                  <p>Opinion: {food.opinion}</p>
+                  {food.image && (
+                    <Image
+                      priority
+                      src={food.image}
+                      alt={food.food_name || 'food'}
+                      height={200}
+                      width={200}
+                    />
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
