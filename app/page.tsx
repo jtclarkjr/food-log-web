@@ -34,11 +34,15 @@ export default async function Home() {
             {foods.map((food) => (
               <li key={food.id}>
                 <h2>{food.food_name}</h2>
+                <p>
+                  <i>{food.updated_at}</i>
+                </p>
                 <p>Restaurant: {food.restaurant}</p>
                 <p>Rating: {food.rating}</p>
                 <p>Calories: {food.calories}</p>
                 <p>Protein: {food.protein}</p>
                 <p>Opinion: {food.opinion}</p>
+
                 {food.image && (
                   <Image
                     priority
