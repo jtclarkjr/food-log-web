@@ -78,7 +78,15 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
-        <button type="submit" style={{ width: '100%', margin: '10px', marginTop: '1rem' }}>
+        <button
+          type="submit"
+          style={{
+            width: '100%',
+            padding: '30px',
+            marginTop: '1rem',
+            border: '1px solid black'
+          }}
+        >
           Update
         </button>
       </form>

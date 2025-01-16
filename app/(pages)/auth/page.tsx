@@ -11,7 +11,15 @@ export default async function AuthPage() {
       <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
         <h1>Signout confirm</h1>
         <form style={{ marginTop: '1rem' }} action={signout}>
-          <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              padding: '30px',
+              marginTop: '1rem',
+              border: '1px solid black'
+            }}
+          >
             Signout
           </button>
         </form>
@@ -41,7 +49,12 @@ export default async function AuthPage() {
         />
         <button
           type="submit"
-          style={{ width: '100%', padding: '10px', marginTop: '1rem' }}
+          style={{
+            width: '100%',
+            padding: '30px',
+            marginTop: '1rem',
+            border: '1px solid black'
+          }}
           formAction={login}
         >
           Log In
@@ -50,7 +63,7 @@ export default async function AuthPage() {
           type="submit"
           style={{
             width: '100%',
-            margin: '10px',
+            padding: '30px',
             marginTop: '1rem',
             border: '1px solid black'
           }}
