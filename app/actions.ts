@@ -1,8 +1,8 @@
 import { createClient } from '@/app/utils/supabase/server'
-import { Food } from './types'
+import { IFood } from './types'
 import { forbidden, unauthorized } from 'next/navigation'
 
-export const fetchFoods = async (): Promise<Food[] | null> => {
+export const fetchFoods = async (): Promise<IFood[] | null> => {
   const supabase = await createClient()
   const {
     data: { user }
@@ -23,7 +23,7 @@ export const fetchFoods = async (): Promise<Food[] | null> => {
   return data
 }
 
-export const createFood = async (food: Omit<Food, 'id' | 'user_id'>): Promise<void> => {
+export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<void> => {
   const supabase = await createClient()
   const {
     data: { user }
@@ -41,7 +41,7 @@ export const createFood = async (food: Omit<Food, 'id' | 'user_id'>): Promise<vo
   }
 }
 
-export const updateFood = async (food: Food): Promise<void> => {
+export const updateFood = async (food: IFood): Promise<void> => {
   if (!food.id) throw new Error('Food ID is required for update')
 
   const supabase = await createClient()

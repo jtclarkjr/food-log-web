@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { fetchFoods } from './actions'
-import { Food } from './types'
+import { IFood } from './types'
 
 export default async function Home() {
-  const foods: Food[] | null = await fetchFoods()
+  const foods: IFood[] | null = await fetchFoods()
   if (!foods || foods.length === 0) {
     return (
       <div>

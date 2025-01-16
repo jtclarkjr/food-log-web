@@ -1,5 +1,6 @@
 import { login, signout, signup } from './actions'
 import { createClient } from '@/app/utils/supabase/server'
+import LoginError from './_components/loginError'
 
 export default async function LoginPage() {
   const supabase = await createClient()
@@ -9,7 +10,7 @@ export default async function LoginPage() {
     return (
       <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
         <h1>Signout</h1>
-        <form style={{ marginTop: '1rem' }} action={signout} method="post">
+        <form style={{ marginTop: '1rem' }} action={signout} method="POST">
           <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
             Signout
           </button>
@@ -28,6 +29,7 @@ export default async function LoginPage() {
           placeholder="Email Address"
           required
           style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
+          autoComplete="email"
         />
         <input
           type="password"
@@ -35,6 +37,7 @@ export default async function LoginPage() {
           placeholder="Password"
           required
           style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
+          autoComplete="current-password"
         />
         <button
           type="submit"
@@ -56,6 +59,7 @@ export default async function LoginPage() {
           Sign Up
         </button>
       </form>
+      <LoginError />
     </div>
   )
 }
