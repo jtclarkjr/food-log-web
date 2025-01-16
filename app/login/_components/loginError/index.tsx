@@ -9,8 +9,8 @@ export default function LoginError() {
   const paramElements: ReactNode[] = []
   params.forEach((value, key) => {
     paramElements.push(
-      <div key={key}>
-        {key}: {value}
+      <div key={key} style={{ color: 'red' }}>
+        {value} {key}
       </div>
     )
   })
