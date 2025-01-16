@@ -82,7 +82,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
           type="submit"
           style={{
             width: '100%',
-            padding: '30px',
+            padding: '15px',
             marginTop: '1rem',
             border: '1px solid black'
           }}

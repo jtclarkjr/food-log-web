@@ -15,7 +15,7 @@ export default async function AuthPage() {
             type="submit"
             style={{
               width: '100%',
-              padding: '30px',
+              padding: '15px',
               marginTop: '1rem',
               border: '1px solid black'
             }}
@@ -51,7 +51,7 @@ export default async function AuthPage() {
           type="submit"
           style={{
             width: '100%',
-            padding: '30px',
+            padding: '15px',
             marginTop: '1rem',
             border: '1px solid black'
           }}
@@ -63,7 +63,7 @@ export default async function AuthPage() {
           type="submit"
           style={{
             width: '100%',
-            padding: '30px',
+            padding: '15px',
             marginTop: '1rem',
             border: '1px solid black'
           }}
