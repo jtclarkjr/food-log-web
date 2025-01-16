@@ -50,7 +50,7 @@ export default async function AuthPage() {
           type="submit"
           style={{
             width: '100%',
-            padding: '10px',
+            margin: '10px',
             marginTop: '1rem',
             border: '1px solid black'
           }}

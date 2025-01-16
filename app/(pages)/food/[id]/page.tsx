@@ -12,7 +12,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
+    <div style={{ maxWidth: '400px', margin: '8rem auto' }}>
       <h1>Update Food</h1>
       <form style={{ marginTop: '1rem' }} action={updateFood}>
         <input type="hidden" name="id" value={food.id} />
@@ -78,8 +78,8 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
-        <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
-          Update Food
+        <button type="submit" style={{ width: '100%', margin: '10px', marginTop: '1rem' }}>
+          Update
         </button>
       </form>
     </div>

@@ -87,6 +87,7 @@ a {
   padding: 20px;
   flex: 1 1 100%; /* Default to full width on mobile */
   max-width: 100%;
+  cursor: 'pointer'
 }
 
 .food-card h2 {
