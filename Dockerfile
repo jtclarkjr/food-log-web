@@ -13,7 +13,7 @@ WORKDIR /app
 ENV NODE_ENV="production"
 
 # Install pnpm
-ARG PNPM_VERSION=9.15.2
+ARG PNPM_VERSION=9.15.4
 RUN npm install -g pnpm@$PNPM_VERSION
 
 
@@ -32,7 +32,7 @@ RUN pnpm install --frozen-lockfile --prod=false
 COPY . .
 
 # Build application
-RUN npx next build --experimental-build-mode compile
+RUN pnpm build
 
 # Remove development dependencies
 RUN pnpm prune --prod
