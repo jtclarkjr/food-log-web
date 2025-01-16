@@ -35,7 +35,7 @@ export default async function Home() {
               <li key={food.id}>
                 <h2>{food.food_name}</h2>
                 <p>
-                  <i>{food.updated_at}</i>
+                  <i>{food.created_at}</i>
                 </p>
                 <p>Restaurant: {food.restaurant}</p>
                 <p>Rating: {food.rating}</p>
