@@ -1,5 +1,5 @@
-import { createClient } from '@/app/utils/supabase/server'
-import { IFood } from './types'
+import { createClient } from '@/utils/supabase/server'
+import { IFood } from '@/types'
 import { forbidden, unauthorized } from 'next/navigation'
 
 export const fetchFoods = async (): Promise<IFood[] | null> => {

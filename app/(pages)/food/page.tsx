@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { fetchFoods } from './actions'
-import { IFood } from './types'
+import { IFood } from '@/types'
 
 export default async function Home() {
   const foods: IFood[] | null = await fetchFoods()
@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <div>
       <Link
-        href={'/login'}
+        href={'/auth'}
         style={{
           position: 'absolute',
           top: '10px',

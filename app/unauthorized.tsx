@@ -16,7 +16,7 @@ export default function Unauthorized() {
 
     // Redirect to the login page after 5 seconds
     const timeout = setTimeout(() => {
-      router.push('/login')
+      router.push('/auth')
     }, 5000)
 
     // Clear timers on component unmount
@@ -32,7 +32,7 @@ export default function Unauthorized() {
       <p>Please log in to access this page.</p>
       <p>Redirecting to the login page in {countdown} seconds...</p>
       <p>OR</p>
-      <Link style={{ color: 'blue' }} href="/login">
+      <Link style={{ color: 'blue' }} href="/auth">
         Login here
       </Link>
     </div>

@@ -1,8 +1,8 @@
 import { login, signout, signup } from './actions'
-import { createClient } from '@/app/utils/supabase/server'
-import LoginError from './_components/loginError'
+import { createClient } from '@/utils/supabase/server'
+import AuthError from './_components/authError'
 
-export default async function LoginPage() {
+export default async function AuthPage() {
   const supabase = await createClient()
 
   const { data } = await supabase.auth.getUser()
@@ -10,7 +10,7 @@ export default async function LoginPage() {
     return (
       <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
         <h1>Signout confirm</h1>
-        <form style={{ marginTop: '1rem' }} action={signout} method="POST">
+        <form style={{ marginTop: '1rem' }} action={signout}>
           <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
             Signout
           </button>
@@ -59,7 +59,7 @@ export default async function LoginPage() {
           Sign Up
         </button>
       </form>
-      <LoginError />
+      <AuthError />
     </div>
   )
 }

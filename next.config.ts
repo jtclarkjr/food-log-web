@@ -2,6 +2,15 @@ import type { NextConfig } from 'next'
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/food',
+        permanent: true
+      }
+    ]
+  },
   experimental: {
     authInterrupts: true
   },

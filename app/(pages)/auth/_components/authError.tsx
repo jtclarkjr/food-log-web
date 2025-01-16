@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export default function LoginError() {
+export default function AuthError() {
   const params = useSearchParams()
 
   // Initialize paramElements as an array of ReactNode
