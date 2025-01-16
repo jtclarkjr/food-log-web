@@ -1,7 +1,9 @@
 import { fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
 
-export default async function FoodIdPage({ params }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>
+
+export default async function FoodIdPage({ params }: { params: Params }) {
   const { id } = await params
   const food: IFood | null = await fetchFoodById(id)
 
@@ -12,7 +14,7 @@ export default async function FoodIdPage({ params }: { params: { id: string } })
   return (
     <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
       <h1>Update Food</h1>
-      <form style={{ marginTop: '1rem' }}>
+      <form style={{ marginTop: '1rem' }} action={updateFood}>
         <input type="hidden" name="id" value={food.id} />
         <div>
           <label htmlFor="food_name">Food Name:</label>
@@ -76,11 +78,7 @@ export default async function FoodIdPage({ params }: { params: { id: string } })
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
-        <button
-          type="submit"
-          style={{ width: '100%', padding: '10px', marginTop: '1rem' }}
-          formAction={updateFood}
-        >
+        <button type="submit" style={{ width: '100%', padding: '10px', marginTop: '1rem' }}>
           Update Food
         </button>
       </form>

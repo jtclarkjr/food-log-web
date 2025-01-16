@@ -1,6 +1,6 @@
 'use server'
 import { createClient } from '@/utils/supabase/server'
-import { IFood } from '@/types'
+import { IFood, TFoodUpdate } from '@/types'
 import { forbidden, redirect, unauthorized } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
@@ -118,7 +118,7 @@ export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<v
 
 export const updateFood = async (formData: FormData): Promise<void> => {
   const id = Number(formData.get('id'))
-  const food: IFood = {
+  const food: TFoodUpdate = {
     food_name: formData.get('food_name') as string,
     restaurant: formData.get('restaurant') as string,
     rating: Number(formData.get('rating')),

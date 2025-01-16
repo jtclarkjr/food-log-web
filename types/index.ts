@@ -1,6 +1,6 @@
 export interface IFood {
   id?: number
-  created_at?: string
+  created_at: string
   user_id?: string
   updated_at?: string
   restaurant?: string
@@ -11,3 +11,5 @@ export interface IFood {
   opinion?: string
   image?: string
 }
+
+export type TFoodUpdate = Omit<IFood, 'created_at'>
