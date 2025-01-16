@@ -42,7 +42,6 @@ export default async function Home() {
                 <p>Calories: {food.calories}</p>
                 <p>Protein: {food.protein}</p>
                 <p>Opinion: {food.opinion}</p>
-
                 {food.image && (
                   <Image
                     priority
