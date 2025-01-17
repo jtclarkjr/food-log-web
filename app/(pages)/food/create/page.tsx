@@ -1,6 +1,15 @@
+import { createClient } from '@/utils/supabase/server'
 import { createFood } from '../actions'
+import { unauthorized } from 'next/navigation'
 
-export default function CreateFoodPage() {
+export default async function CreateFoodPage() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.getUser()
+  if (!data.user || error) {
+    unauthorized()
+  }
+
   return (
     <div style={{ maxWidth: '400px', margin: '8rem auto' }}>
       <h1>Create New Food</h1>

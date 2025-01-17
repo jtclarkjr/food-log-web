@@ -1,9 +1,17 @@
+import { createClient } from '@/utils/supabase/server'
 import { deleteFood, fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
+import { unauthorized } from 'next/navigation'
 
 type Params = Promise<{ id: string }>
 
 export default async function FoodIdPage({ params }: { params: Params }) {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.getUser()
+  if (!data.user || error) {
+    unauthorized()
+  }
   const { id } = await params
   const food: IFood | null = await fetchFoodById(id)
 
