@@ -110,7 +110,6 @@ export const createFood = async (formData: FormData): Promise<void> => {
   if (!user) unauthorized()
 
   let imageUrl: string | null = null
-  console.log(imageFile)
   if (imageFile) {
     imageUrl = await uploadImage(imageFile)
     if (!imageUrl) {
@@ -149,10 +148,9 @@ export const updateFood = async (formData: FormData): Promise<void> => {
   if (!id) throw new Error('Food ID is required for update')
 
   let imageUrl: string | null = null
-  if (currentImage && !imageFile) {
+  if (currentImage && imageFile?.name === 'undefined') {
     imageUrl = currentImage
-  }
-  if (imageFile) {
+  } else if (imageFile) {
     imageUrl = await uploadImage(imageFile)
     if (!imageUrl) {
       console.error('Image upload failed')
@@ -230,7 +228,5 @@ export const uploadImage = async (file: File): Promise<string | null> => {
   }
 
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
-  console.log(data)
-
   return data.publicUrl
 }
