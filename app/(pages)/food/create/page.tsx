@@ -1,35 +1,16 @@
-import { deleteFood, fetchFoodById, updateFood } from '../actions'
-import { IFood } from '@/types'
+import { createFood } from '../actions'
 
-type Params = Promise<{ id: string }>
-
-export default async function FoodIdPage({ params }: { params: Params }) {
-  const { id } = await params
-  const food: IFood | null = await fetchFoodById(id)
-
-  if (!food) {
-    return <p>Food not found</p>
-  }
-
+export default function CreateFoodPage() {
   return (
     <div style={{ maxWidth: '400px', margin: '8rem auto' }}>
-      <form style={{ marginTop: '1rem' }} action={deleteFood}>
-        <input type="hidden" name="id" value={food.id} />
-        <button type="submit" className="delete-button">
-          Delete
-        </button>
-      </form>
-
-      <h1>Update Food</h1>
-      <form style={{ marginTop: '1rem' }} action={updateFood}>
-        <input type="hidden" name="id" value={food.id} />
+      <h1>Create New Food</h1>
+      <form style={{ marginTop: '1rem' }} action={createFood}>
         <div>
           <label htmlFor="food_name">Food Name:</label>
           <input
             type="text"
             id="food_name"
             name="food_name"
-            defaultValue={food.food_name}
             required
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
@@ -40,7 +21,6 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             type="text"
             id="restaurant"
             name="restaurant"
-            defaultValue={food.restaurant}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
@@ -50,7 +30,6 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             type="number"
             id="rating"
             name="rating"
-            defaultValue={food.rating}
             min="0"
             max="10"
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
@@ -59,20 +38,18 @@ export default async function FoodIdPage({ params }: { params: Params }) {
         <div>
           <label htmlFor="calories">Calories:</label>
           <input
-            type="number"
+            type="text"
             id="calories"
             name="calories"
-            defaultValue={food.calories}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
         <div>
           <label htmlFor="protein">Protein:</label>
           <input
-            type="number"
+            type="text"
             id="protein"
             name="protein"
-            defaultValue={food.protein}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
@@ -81,7 +58,6 @@ export default async function FoodIdPage({ params }: { params: Params }) {
           <textarea
             id="opinion"
             name="opinion"
-            defaultValue={food.opinion}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
@@ -94,7 +70,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             border: '1px solid black'
           }}
         >
-          Update
+          Create
         </button>
       </form>
     </div>

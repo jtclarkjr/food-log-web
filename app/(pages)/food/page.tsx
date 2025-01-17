@@ -45,6 +45,11 @@ export default async function FoodLog() {
           </ul>
         )}
       </main>
+
+      {/* Floating Action Button */}
+      <Link href="/food/create">
+        <div className="fab">+</div>
+      </Link>
     </div>
   )
 }

@@ -98,7 +98,15 @@ export const fetchFoodById = async (foodId: string): Promise<IFood | null> => {
   return data
 }
 
-export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<void> => {
+export const createFood = async (formData: FormData): Promise<void> => {
+  const food: TFoodUpdate = {
+    food_name: formData.get('food_name') as string,
+    restaurant: formData.get('restaurant') as string,
+    rating: Number(formData.get('rating')),
+    calories: formData.get('calories') as string,
+    protein: formData.get('protein') as string,
+    opinion: formData.get('opinion') as string
+  }
   const supabase = await createClient()
   const {
     data: { user }
@@ -114,6 +122,9 @@ export const createFood = async (food: Omit<IFood, 'id' | 'user_id'>): Promise<v
     console.error('Error creating food:', error)
     throw error
   }
+
+  revalidatePath('/food', 'layout')
+  redirect('/food')
 }
 
 export const updateFood = async (formData: FormData): Promise<void> => {
@@ -145,8 +156,14 @@ export const updateFood = async (formData: FormData): Promise<void> => {
   redirect('/food')
 }
 
-export const deleteFood = async (id: number): Promise<void> => {
+export const deleteFood = async (formData: FormData): Promise<void> => {
+  const id = Number(formData.get('id'))
   const supabase = await createClient()
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+  // redirects to unauthorized if no user
+  if (!user) unauthorized()
   const { error, count } = await supabase.from('Food').delete().eq('id', id)
 
   if (error) {
@@ -158,6 +175,9 @@ export const deleteFood = async (id: number): Promise<void> => {
     console.warn('No rows deleted, possible invalid ID or insufficient permissions')
     forbidden()
   }
+
+  revalidatePath('/food', 'layout')
+  redirect('/food')
 }
 
 export const uploadImage = async (file: File): Promise<string | null> => {
