@@ -31,13 +31,16 @@ export default async function FoodLog() {
                   <p>Protein: {food.protein}</p>
                   <p>Opinion: {food.opinion}</p>
                   {food.image && (
-                    <Image
-                      priority
-                      src={food.image}
-                      alt={food.food_name || 'food'}
-                      height={200}
-                      width={200}
-                    />
+                    // use div to make clickable full container
+                    <div>
+                      <Image
+                        priority
+                        src={food.image}
+                        alt={food.food_name || 'food'}
+                        height={200}
+                        width={200}
+                      />
+                    </div>
                   )}
                 </Link>
               </li>
