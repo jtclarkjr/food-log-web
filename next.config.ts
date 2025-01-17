@@ -12,7 +12,10 @@ const nextConfig: NextConfig = {
     ]
   },
   experimental: {
-    authInterrupts: true
+    authInterrupts: true,
+    serverActions: {
+      bodySizeLimit: '5mb'
+    }
   },
   images: {
     remotePatterns: [
