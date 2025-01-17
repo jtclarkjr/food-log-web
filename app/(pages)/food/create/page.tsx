@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { createFood } from '../actions'
 import { unauthorized } from 'next/navigation'
+import SubmitButton from '../_components/submitButton'
 
 export default async function CreateFoodPage() {
   const supabase = await createClient()
@@ -80,17 +81,7 @@ export default async function CreateFoodPage() {
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '15px',
-            marginTop: '1rem',
-            border: '1px solid black'
-          }}
-        >
-          Create
-        </button>
+        <SubmitButton />
       </form>
     </div>
   )

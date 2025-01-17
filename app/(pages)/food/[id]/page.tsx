@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { deleteFood, fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
 import { unauthorized } from 'next/navigation'
+import SubmitButton from '../_components/submitButton'
 
 type Params = Promise<{ id: string }>
 
@@ -103,17 +104,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '15px',
-            marginTop: '1rem',
-            border: '1px solid black'
-          }}
-        >
-          Update
-        </button>
+        <SubmitButton />
       </form>
     </div>
   )
