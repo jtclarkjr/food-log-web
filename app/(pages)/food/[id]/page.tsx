@@ -101,6 +101,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             id="image"
             name="image"
             accept="image/*"
+            defaultValue={food.image!}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
