@@ -144,11 +144,14 @@ export const createFood = async (formData: FormData): Promise<void> => {
 export const updateFood = async (formData: FormData): Promise<void> => {
   const id = Number(formData.get('id'))
   const imageFile = formData.get('image') as File | null
+  const currentImage = formData.get('currentImage') as string
 
   if (!id) throw new Error('Food ID is required for update')
 
   let imageUrl: string | null = null
-  console.log(imageFile)
+  if (currentImage && !imageFile) {
+    imageUrl = currentImage
+  }
   if (imageFile) {
     imageUrl = await uploadImage(imageFile)
     if (!imageUrl) {
@@ -166,6 +169,7 @@ export const updateFood = async (formData: FormData): Promise<void> => {
     opinion: formData.get('opinion') as string,
     image: imageUrl
   }
+
   const supabase = await createClient()
   const { error, count } = await supabase.from('Food').update(food).eq('id', id)
 

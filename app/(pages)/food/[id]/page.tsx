@@ -108,6 +108,12 @@ export default async function FoodIdPage({ params }: { params: Params }) {
           <div>
             {food.image && (
               <>
+                <input
+                  type="text"
+                  id="currentImage"
+                  name="currentImage"
+                  defaultValue={food.image}
+                />
                 <p>Current image:</p>
                 <Image src={food.image} alt={food.image} height={200} width={200} />
               </>
