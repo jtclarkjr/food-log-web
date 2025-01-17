@@ -3,6 +3,7 @@ import { deleteFood, fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
 import { unauthorized } from 'next/navigation'
 import SubmitButton from '../_components/submitButton'
+import Image from 'next/image'
 
 type Params = Promise<{ id: string }>
 
@@ -101,9 +102,17 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             id="image"
             name="image"
             accept="image/*"
-            defaultValue={food.image!}
+            // defaultValue={food.image}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
+          <div>
+            {food.image && (
+              <>
+                <p>Current image:</p>
+                <Image src={food.image} alt={food.image} height={200} width={200} />
+              </>
+            )}
+          </div>
         </div>
         <SubmitButton />
       </form>
