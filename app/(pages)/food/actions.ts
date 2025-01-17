@@ -3,6 +3,7 @@ import { createClient } from '@/utils/supabase/server'
 import { IFood, TFoodUpdate } from '@/types'
 import { forbidden, redirect, unauthorized } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { randomUUID } from 'crypto'
 
 // export const fetchFoods = async (): Promise<IFood[] | null> => {
 //   const supabase = await createClient()
@@ -99,20 +100,33 @@ export const fetchFoodById = async (foodId: string): Promise<IFood | null> => {
 }
 
 export const createFood = async (formData: FormData): Promise<void> => {
-  const food: TFoodUpdate = {
-    food_name: formData.get('food_name') as string,
-    restaurant: formData.get('restaurant') as string,
-    rating: Number(formData.get('rating')),
-    calories: formData.get('calories') as string,
-    protein: formData.get('protein') as string,
-    opinion: formData.get('opinion') as string
-  }
+  const imageFile = formData.get('image') as File | null
+
   const supabase = await createClient()
   const {
     data: { user }
   } = await supabase.auth.getUser()
   // redirects to unauthorized if no user
   if (!user) unauthorized()
+
+  let imageUrl: string | null = null
+  console.log(imageFile)
+  if (imageFile) {
+    imageUrl = await uploadImage(imageFile)
+    if (!imageUrl) {
+      console.error('Image upload failed')
+      throw new Error('Image upload failed')
+    }
+  }
+  const food: TFoodUpdate = {
+    food_name: formData.get('food_name') as string,
+    restaurant: formData.get('restaurant') as string,
+    rating: Number(formData.get('rating')),
+    calories: formData.get('calories') as string,
+    protein: formData.get('protein') as string,
+    opinion: formData.get('opinion') as string,
+    image: imageUrl
+  }
 
   const newFood = { ...food, user_id: user.id }
 
@@ -129,16 +143,29 @@ export const createFood = async (formData: FormData): Promise<void> => {
 
 export const updateFood = async (formData: FormData): Promise<void> => {
   const id = Number(formData.get('id'))
+  const imageFile = formData.get('image') as File | null
+
+  if (!id) throw new Error('Food ID is required for update')
+
+  let imageUrl: string | null = null
+  console.log(imageFile)
+  if (imageFile) {
+    imageUrl = await uploadImage(imageFile)
+    if (!imageUrl) {
+      console.error('Image upload failed')
+      throw new Error('Image upload failed')
+    }
+  }
+
   const food: TFoodUpdate = {
     food_name: formData.get('food_name') as string,
     restaurant: formData.get('restaurant') as string,
     rating: Number(formData.get('rating')),
     calories: formData.get('calories') as string,
     protein: formData.get('protein') as string,
-    opinion: formData.get('opinion') as string
+    opinion: formData.get('opinion') as string,
+    image: imageUrl
   }
-
-  if (!id) throw new Error('Food ID is required for update')
   const supabase = await createClient()
   const { error, count } = await supabase.from('Food').update(food).eq('id', id)
 
@@ -187,7 +214,7 @@ export const uploadImage = async (file: File): Promise<string | null> => {
   } = await supabase.auth.getUser()
   if (!user) throw new Error('User not authenticated')
 
-  const fileName = `${user.id}/${Date.now()}_${file.name}`
+  const fileName = `public/${randomUUID().toUpperCase()}.jpg`
   const { error } = await supabase.storage.from('images').upload(fileName, file, {
     cacheControl: '3600',
     upsert: false
@@ -199,6 +226,7 @@ export const uploadImage = async (file: File): Promise<string | null> => {
   }
 
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
+  console.log(data)
 
   return data.publicUrl
 }

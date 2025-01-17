@@ -9,7 +9,7 @@ export interface IFood {
   protein?: string
   food_name?: string
   opinion?: string
-  image?: string
+  image?: string | null
 }
 
 export type TFoodUpdate = Omit<IFood, 'created_at'>

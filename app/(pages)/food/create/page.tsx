@@ -61,6 +61,16 @@ export default function CreateFoodPage() {
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
         </div>
+        <div>
+          <label htmlFor="image">Upload Image:</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
+          />
+        </div>
         <button
           type="submit"
           style={{
