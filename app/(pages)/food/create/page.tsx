@@ -12,7 +12,7 @@ export default async function CreateFoodPage() {
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '8rem auto' }}>
+    <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <h1>Create New Food</h1>
       <form style={{ marginTop: '1rem' }} action={createFood}>
         <div>

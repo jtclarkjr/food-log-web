@@ -22,7 +22,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '8rem auto' }}>
+    <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <form style={{ marginTop: '1rem' }} action={deleteFood}>
         <input type="hidden" name="id" value={food.id} />
         <button type="submit" className="delete-button">
@@ -109,7 +109,7 @@ export default async function FoodIdPage({ params }: { params: Params }) {
             {food.image && (
               <>
                 <input
-                  type="text"
+                  type="hidden"
                   id="currentImage"
                   name="currentImage"
                   defaultValue={food.image}
