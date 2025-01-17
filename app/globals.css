@@ -156,7 +156,7 @@ a {
   }
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@supports (-webkit-touch-callout: none) { 
   select,
   textarea,
   input {
