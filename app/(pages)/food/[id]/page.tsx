@@ -5,7 +5,8 @@ import SubmitButton from '../_components/submitButton'
 import Image from 'next/image'
 import { use } from 'react'
 
-export default function FoodIdPage({ params }: { params: { id: string } }) {
+export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
+  const params = use(props.params)
   const { id } = params
   const food: IFood | null = use(fetchFoodById(id))
 
@@ -107,7 +108,7 @@ export default function FoodIdPage({ params }: { params: { id: string } }) {
                   defaultValue={food.image}
                 />
                 <p>Current image:</p>
-                <Image src={food.image} alt={food.image} height={200} width={200} />
+                <Image priority src={food.image} alt={food.image} height={200} width={200} />
               </>
             )}
           </div>
