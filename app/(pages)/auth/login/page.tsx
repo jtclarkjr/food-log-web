@@ -1,5 +1,6 @@
 import { login, signup } from '../actions'
-// import AppleSignInButton from '../_components/appleSignin'
+
+import AppleSignInButton from '../_components/appleSignin'
 import AuthError from '../_components/authError'
 
 export default async function AuthLoginPage() {
@@ -48,7 +49,7 @@ export default async function AuthLoginPage() {
           Sign Up
         </button>
       </form>
-      {/* <AppleSignInButton /> */}
+      <AppleSignInButton />
       <AuthError />
     </div>
   )

@@ -45,13 +45,17 @@ export async function signup(formData: FormData) {
 }
 
 // Currently has proper flow but no returned session so no login
+// This point ---> "At the callback endpoint, handle the code exchange to save the user session."
+// https://supabase.com/docs/guides/auth/social-login/auth-apple?queryGroups=environment&environment=server&queryGroups=framework&framework=nextjs&queryGroups=platform&platform=web#generate-a-client_secret
+
 // Also need to figure out on supabase how to get ios app and web, client ids working together
+
 export const appleSignIn = async () => {
   const supabase = await createClient()
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { data } = await supabase.auth.signInWithOAuth({
     provider: 'apple',
     options: {
-      redirectTo: `` // supabase callback url
+      redirectTo: `https://food-log-web.vercel.app`
     }
   })
 
@@ -59,9 +63,9 @@ export const appleSignIn = async () => {
     redirect(data.url)
   }
 
-  if (error) {
-    console.error('Error during Apple sign-in:', error)
-  }
+  // if (error) {
+  //   console.error('Error during Apple sign-in:', error)
+  // }
 }
 
 export async function signout() {

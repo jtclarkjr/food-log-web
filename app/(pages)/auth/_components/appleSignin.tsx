@@ -1,12 +1,27 @@
 'use client'
+
 import AppleIcon from '@mui/icons-material/Apple'
-import { appleSignIn } from '../actions'
+import { createClient } from '@/utils/supabase/client'
 
 export default function AppleSignInButton() {
+  const login = async () => {
+    try {
+      const supabase = await createClient()
+      await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: {
+          redirectTo: 'https://food-log-web.vercel.app'
+        }
+      })
+    } catch (error) {
+      console.error('Error during Apple Sign-In:', error)
+    }
+  }
+
   return (
     <button
       type="button"
-      onClick={appleSignIn}
+      onClick={login}
       style={{
         display: 'flex',
         alignItems: 'center',
