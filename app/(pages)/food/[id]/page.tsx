@@ -1,7 +1,7 @@
 import { deleteFood, fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
 
-import SubmitButton from '../_components/submitButton'
+import Button from '../_components/button'
 import Image from 'next/image'
 import { use } from 'react'
 
@@ -18,9 +18,10 @@ export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <form style={{ marginTop: '1rem' }} action={deleteFood}>
         <input type="hidden" name="id" value={food.id} />
-        <button type="submit" className="delete-button">
+        {/* <button type="submit" className="delete-button">
           Delete
-        </button>
+        </button> */}
+        <Button variant="delete" />
       </form>
 
       <h1>Update Food</h1>
@@ -113,7 +114,7 @@ export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
             )}
           </div>
         </div>
-        <SubmitButton />
+        <Button variant="save" />
       </form>
     </div>
   )
