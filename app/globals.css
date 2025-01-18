@@ -215,6 +215,19 @@ h1, h2, p::first-letter {
   margin-bottom: 0.5rem;
 }
 
+:root {
+  --apple-button-bg: black;
+  --apple-button-text: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --apple-button-bg: white;
+    --apple-button-text: black;
+  }
+}
+
+
 /* Responsive adjustments */
 @media (min-width: 600px) {
   .food-card {

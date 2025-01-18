@@ -9,7 +9,7 @@ const FoodLogContent = () => {
 
   return (
     <div className="food-log">
-      <Link href="/auth">
+      <Link href="/auth/signout">
         <div className="signout-button">Signout</div>
       </Link>
 

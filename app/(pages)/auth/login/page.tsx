@@ -1,31 +1,8 @@
-import { login, signout, signup } from './actions'
-import { createClient } from '@/utils/supabase/server'
-import AuthError from './_components/authError'
+import { login, signup } from '../actions'
+// import AppleSignInButton from '../_components/appleSignin'
+import AuthError from '../_components/authError'
 
-export default async function AuthPage() {
-  const supabase = await createClient()
-  const { data } = await supabase.auth.getUser()
-  if (data?.user) {
-    return (
-      <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
-        <h1>Signout confirm</h1>
-        <form style={{ marginTop: '1rem' }} action={signout}>
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: '15px',
-              marginTop: '1rem',
-              border: '1px solid black'
-            }}
-          >
-            Signout
-          </button>
-        </form>
-      </div>
-    )
-  }
-
+export default async function AuthLoginPage() {
   return (
     <div style={{ maxWidth: '400px', margin: '8rem auto', textAlign: 'center' }}>
       <h1>Sign in</h1>
@@ -71,6 +48,7 @@ export default async function AuthPage() {
           Sign Up
         </button>
       </form>
+      {/* <AppleSignInButton /> */}
       <AuthError />
     </div>
   )
