@@ -45,7 +45,7 @@ export async function signup(formData: FormData) {
 }
 
 // Currently has proper flow but no returned session so no login
-// Also need to figure out on supabase how to get app client and web working together
+// Also need to figure out on supabase how to get ios app and web, client ids working together
 export const appleSignIn = async () => {
   const supabase = await createClient()
   const { data, error } = await supabase.auth.signInWithOAuth({
