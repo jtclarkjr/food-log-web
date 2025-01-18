@@ -1,21 +1,13 @@
-import { createClient } from '@/utils/supabase/server'
 import { deleteFood, fetchFoodById, updateFood } from '../actions'
 import { IFood } from '@/types'
-import { unauthorized } from 'next/navigation'
+
 import SubmitButton from '../_components/submitButton'
 import Image from 'next/image'
+import { use } from 'react'
 
-type Params = Promise<{ id: string }>
-
-export default async function FoodIdPage({ params }: { params: Params }) {
-  const supabase = await createClient()
-
-  const { data, error } = await supabase.auth.getUser()
-  if (!data.user || error) {
-    unauthorized()
-  }
-  const { id } = await params
-  const food: IFood | null = await fetchFoodById(id)
+export default function FoodIdPage({ params }: { params: { id: string } }) {
+  const { id } = params
+  const food: IFood | null = use(fetchFoodById(id))
 
   if (!food) {
     return <p>Food not found</p>

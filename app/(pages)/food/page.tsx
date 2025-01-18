@@ -2,9 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { fetchFoods } from './actions'
 import { IFood } from '@/types'
+import { use } from 'react'
 
-export default async function FoodLog() {
-  const foods: IFood[] | null = await fetchFoods()
+export default function FoodLog() {
+  const foods: IFood[] | null = use(fetchFoods())
 
   return (
     <div className="food-log">

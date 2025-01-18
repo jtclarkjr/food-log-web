@@ -18,7 +18,7 @@ export default function SubmitButton() {
         opacity: pending ? 0.6 : 1
       }}
     >
-      {pending ? 'Submitting...' : 'Submit'}
+      {pending ? 'Saving...' : 'Save'}
     </button>
   )
 }
