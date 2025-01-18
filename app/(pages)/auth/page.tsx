@@ -4,7 +4,6 @@ import AuthError from './_components/authError'
 
 export default async function AuthPage() {
   const supabase = await createClient()
-
   const { data } = await supabase.auth.getUser()
   if (data?.user) {
     return (

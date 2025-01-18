@@ -10,7 +10,7 @@ export default function Button({ variant }: { variant: string }) {
   const label = pending ? (isSave ? 'Saving...' : 'Deleting...') : isSave ? 'Save' : 'Delete'
   const buttonStyle = {
     width: '100%',
-    padding: '15px',
+    padding: isSave ? '15px' : '10px',
     marginTop: isSave ? '1rem' : 0,
     border: '1px solid black',
     cursor: pending ? 'not-allowed' : 'pointer',
@@ -25,7 +25,7 @@ export default function Button({ variant }: { variant: string }) {
       style={buttonStyle}
       className={isSave ? 'save-button' : 'delete-button'}
     >
-      {label}
+      <div style={{ fontSize: '16px' }}>{label}</div>
     </button>
   )
 }
