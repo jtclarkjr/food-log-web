@@ -10,7 +10,6 @@ export const fetchFoods = async (): Promise<IFood[] | null> => {
   const {
     data: { user }
   } = await supabase.auth.getUser()
-
   // redirects to unauthorized if no user
   if (!user) unauthorized()
 

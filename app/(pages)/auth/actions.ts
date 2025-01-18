@@ -4,6 +4,18 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
+const getURL = () => {
+  let url =
+    process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
+    process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
+    'http://localhost:3000/'
+  // Make sure to include `https://` when not localhost.
+  url = url.startsWith('http') ? url : `https://${url}`
+  // Make sure to include a trailing `/`.
+  url = url.endsWith('/') ? url : `${url}/`
+  return `${url}/auth/callback`
+}
+
 export async function login(formData: FormData) {
   const supabase = await createClient()
 
@@ -44,18 +56,12 @@ export async function signup(formData: FormData) {
   redirect('/food')
 }
 
-// Currently has proper flow but no returned session so no login
-// This point ---> "At the callback endpoint, handle the code exchange to save the user session."
-// https://supabase.com/docs/guides/auth/social-login/auth-apple?queryGroups=environment&environment=server&queryGroups=framework&framework=nextjs&queryGroups=platform&platform=web#generate-a-client_secret
-
-// Also need to figure out on supabase how to get ios app and web, client ids working together
-
-export const appleSignIn = async () => {
+export async function signInWithDiscord() {
   const supabase = await createClient()
-  const { data } = await supabase.auth.signInWithOAuth({
-    provider: 'apple',
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'discord',
     options: {
-      redirectTo: `https://food-log-web.vercel.app`
+      redirectTo: getURL()
     }
   })
 
@@ -63,9 +69,27 @@ export const appleSignIn = async () => {
     redirect(data.url)
   }
 
-  // if (error) {
-  //   console.error('Error during Apple sign-in:', error)
-  // }
+  if (error) {
+    console.error('Error during Discord sign-in:', error)
+  }
+}
+
+export const signInWithApple = async () => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'apple',
+    options: {
+      redirectTo: getURL()
+    }
+  })
+
+  if (data.url) {
+    redirect(data.url)
+  }
+
+  if (error) {
+    console.error('Error during Apple sign-in:', error)
+  }
 }
 
 export async function signout() {
@@ -73,7 +97,7 @@ export async function signout() {
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    redirect('/error')
+    redirect('/auth/login')
   }
   redirect('/auth/login')
 }

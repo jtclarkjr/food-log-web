@@ -1,7 +1,6 @@
-import AppleIcon from '@mui/icons-material/Apple'
-import { signInWithApple } from '../actions'
+import { signInWithDiscord } from '../actions'
 
-export default function AppleSignInButton() {
+export default function DiscordSignInButton() {
   return (
     <form style={{ marginTop: '1rem' }}>
       <button
@@ -15,15 +14,14 @@ export default function AppleSignInButton() {
           marginTop: '1rem',
           borderRadius: '4px',
           border: 'none',
-          backgroundColor: 'var(--apple-button-bg)',
-          color: 'var(--apple-button-text)',
+          backgroundColor: 'rgb(88, 101, 242)',
+          color: 'white',
           cursor: 'pointer',
           fontSize: '16px'
         }}
-        formAction={signInWithApple}
+        formAction={signInWithDiscord}
       >
-        <AppleIcon style={{ marginRight: '8px' }} />
-        Sign in with Apple
+        Discord
       </button>
     </form>
   )

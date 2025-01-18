@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import { login, signup } from '../actions'
 import AppleSignInButton from '../_components/appleSignin'
 import AuthError from '../_components/authError'
+import DiscordSignInButton from '../_components/discordSignIn'
 
 export default function AuthLoginPage() {
   return (
@@ -51,6 +52,7 @@ export default function AuthLoginPage() {
           </button>
         </form>
         <AppleSignInButton />
+        <DiscordSignInButton />
         <AuthError />
       </div>
     </Suspense>
