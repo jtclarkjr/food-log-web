@@ -170,7 +170,7 @@ h1, h2, p::first-letter {
 }
 
 .skeleton-home {
-  background: #e0e0e0;
+  background: rgba(224, 224, 224, 0.27);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -185,12 +185,6 @@ h1, h2, p::first-letter {
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
   animation: shimmer 1.5s infinite;
-}
-
-.skeleton-home-signout {
-  height: 40px;
-  width: 100px;
-  margin-bottom: 1rem;
 }
 
 .skeleton-home-header {
@@ -220,17 +214,6 @@ h1, h2, p::first-letter {
   width: 200px;
   margin-bottom: 0.5rem;
 }
-
-.skeleton-home-fab {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-
 
 /* Responsive adjustments */
 @media (min-width: 600px) {

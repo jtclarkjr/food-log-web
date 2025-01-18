@@ -4,7 +4,7 @@ import { fetchFoods } from './actions'
 import { IFood } from '@/types'
 import { use, Suspense } from 'react'
 
-function FoodLogContent() {
+const FoodLogContent = () => {
   const foods: IFood[] | null = use(fetchFoods())
 
   return (
@@ -57,12 +57,11 @@ function FoodLogContent() {
   )
 }
 
-function FoodLogSkeleton() {
+const FoodLogSkeleton = () => {
   const placeholderItems = Array.from({ length: 3 }) // Placeholder for 3 loading items
 
   return (
-    <div className="food-log">
-      <div className="skeleton-home skeleton-home-signout" />
+    <div className="food-log" style={{ marginTop: '1rem' }}>
       <main className="container">
         <div className="skeleton-home skeleton-home-header" />
         <ul className="food-list">
@@ -76,7 +75,6 @@ function FoodLogSkeleton() {
           ))}
         </ul>
       </main>
-      <div className="skeleton-home skeleton-home-fab" />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import Button from '../_components/button'
 import Image from 'next/image'
 import { use, Suspense } from 'react'
 
-function FoodIdContent({ id }: { id: string }) {
+const FoodIdContent = ({ id }: { id: string }) => {
   const food: IFood | null = use(fetchFoodById(id))
 
   if (!food) {
@@ -114,7 +114,7 @@ function FoodIdContent({ id }: { id: string }) {
   )
 }
 
-function FoodFormSkeleton() {
+const FoodFormSkeleton = () => {
   return (
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <h1>Update Food</h1>
