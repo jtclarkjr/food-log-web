@@ -18,9 +18,6 @@ export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <form style={{ marginTop: '1rem' }} action={deleteFood}>
         <input type="hidden" name="id" value={food.id} />
-        {/* <button type="submit" className="delete-button">
-          Delete
-        </button> */}
         <Button variant="delete" />
       </form>
 
@@ -96,7 +93,6 @@ export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
             id="image"
             name="image"
             accept="image/*"
-            // defaultValue={food.image}
             style={{ width: '100%', padding: '10px', marginBottom: '1rem' }}
           />
           <div>

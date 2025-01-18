@@ -5,56 +5,6 @@ import { forbidden, redirect, unauthorized } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { randomUUID } from 'crypto'
 
-// export const fetchFoods = async (): Promise<IFood[] | null> => {
-//   const supabase = await createClient()
-//   const {
-//     data: { user },
-//     error: userError
-//   } = await supabase.auth.getUser()
-
-//   // Redirects to unauthorized if no user
-//   if (userError || !user) {
-//     console.error('User not authenticated:', userError)
-//     unauthorized()
-//     return null
-//   }
-
-//   // Retrieve the user's authentication token
-//   const {
-//     data: { session },
-//     error: sessionError
-//   } = await supabase.auth.getSession()
-
-//   if (sessionError || !session) {
-//     console.error('Error retrieving session:', sessionError)
-//     unauthorized()
-//     return null
-//   }
-
-//   const token = session.access_token
-
-//   try {
-//     const response = await fetch('https://food-api.fly.dev/food', {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}` // Include the token in the Authorization header
-//       }
-//     })
-
-//     if (!response.ok) {
-//       console.error('Error fetching foods:', response.statusText)
-//       return null
-//     }
-
-//     const data: IFood[] = await response.json()
-//     return data
-//   } catch (error) {
-//     console.error('Error fetching foods:', error)
-//     return null
-//   }
-// }
-
 export const fetchFoods = async (): Promise<IFood[] | null> => {
   const supabase = await createClient()
   const {
