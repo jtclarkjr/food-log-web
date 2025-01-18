@@ -2,9 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { fetchFoods } from './actions'
 import { IFood } from '@/types'
-import { use } from 'react'
+import { use, Suspense } from 'react'
 
-export default function FoodLog() {
+function FoodLogContent() {
   const foods: IFood[] | null = use(fetchFoods())
 
   return (
@@ -26,13 +26,12 @@ export default function FoodLog() {
                   <p>
                     <i>{new Date(food.created_at).toLocaleDateString()}</i>
                   </p>
-                  <p>Restaurant: {food.restaurant}</p>
-                  <p>Rating: {food.rating}</p>
-                  <p>Calories: {food.calories}</p>
-                  <p>Protein: {food.protein}</p>
-                  <p>Opinion: {food.opinion}</p>
+                  <p>restaurant: {food.restaurant}</p>
+                  <p>rating: {food.rating}</p>
+                  <p>calories: {food.calories}</p>
+                  <p>protein: {food.protein}</p>
+                  <p>opinion: {food.opinion}</p>
                   {food.image && (
-                    // use div to make clickable full container
                     <div>
                       <Image
                         priority
@@ -55,5 +54,37 @@ export default function FoodLog() {
         <div className="fab">+</div>
       </Link>
     </div>
+  )
+}
+
+function FoodLogSkeleton() {
+  const placeholderItems = Array.from({ length: 3 }) // Placeholder for 3 loading items
+
+  return (
+    <div className="food-log">
+      <div className="skeleton-home skeleton-home-signout" />
+      <main className="container">
+        <div className="skeleton-home skeleton-home-header" />
+        <ul className="food-list">
+          {placeholderItems.map((_, index) => (
+            <li className="food-card skeleton-home-item" key={index}>
+              <div className="skeleton-home skeleton-home-title" />
+              <div className="skeleton-home skeleton-home-text" />
+              <div className="skeleton-home skeleton-home-text" />
+              <div className="skeleton-home skeleton-home-image" />
+            </li>
+          ))}
+        </ul>
+      </main>
+      <div className="skeleton-home skeleton-home-fab" />
+    </div>
+  )
+}
+
+export default function FoodLog() {
+  return (
+    <Suspense fallback={<FoodLogSkeleton />}>
+      <FoodLogContent />
+    </Suspense>
   )
 }

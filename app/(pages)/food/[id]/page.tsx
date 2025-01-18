@@ -3,11 +3,9 @@ import { IFood } from '@/types'
 
 import Button from '../_components/button'
 import Image from 'next/image'
-import { use } from 'react'
+import { use, Suspense } from 'react'
 
-export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
-  const params = use(props.params)
-  const { id } = params
+function FoodIdContent({ id }: { id: string }) {
   const food: IFood | null = use(fetchFoodById(id))
 
   if (!food) {
@@ -113,5 +111,53 @@ export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
         <Button variant="save" />
       </form>
     </div>
+  )
+}
+
+function FoodFormSkeleton() {
+  return (
+    <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
+      <h1>Update Food</h1>
+      <br />
+      <div
+        className="skeleton skeleton-header"
+        style={{ height: '30px', width: '100%', marginTop: '1rem', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-input"
+        style={{ height: '50px', width: '100%', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-input"
+        style={{ height: '50px', width: '100%', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-input"
+        style={{ height: '50px', width: '100%', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-input"
+        style={{ height: '50px', width: '100%', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-input"
+        style={{ height: '50px', width: '100%', marginBottom: '1rem' }}
+      />
+      <div
+        className="skeleton skeleton-button"
+        style={{ height: '40px', width: '100%', marginBottom: '1rem' }}
+      />
+    </div>
+  )
+}
+
+export default function FoodIdPage(props: { params: Promise<{ id: string }> }) {
+  const params = use(props.params)
+  const { id } = params
+
+  return (
+    <Suspense fallback={<FoodFormSkeleton />}>
+      <FoodIdContent id={id} />
+    </Suspense>
   )
 }
