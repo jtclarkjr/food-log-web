@@ -56,7 +56,7 @@ export default function AuthSignUpPage() {
         </form>
         <div style={{ margin: '20px auto' }}>
           Already have an account?{' '}
-          <Link href="/auth/login" style={{ color: '#0070f3' }}>
+          <Link href="/auth/login" style={{ color: '#0070f3', cursor: 'pointer' }}>
             Sign in here
           </Link>
         </div>

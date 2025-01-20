@@ -41,8 +41,9 @@ export default function EmailSignIn() {
             padding: '16px',
             marginTop: '1rem',
             borderRadius: 5,
-            border: '1px solid transparent',
-            fontSize: '16px'
+            border: '1px solid',
+            fontSize: '16px',
+            cursor: 'pointer'
           }}
           formAction={login}
         >

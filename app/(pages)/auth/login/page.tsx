@@ -17,7 +17,7 @@ export default function AuthLoginPage() {
         <AuthError />
         <div style={{ margin: '20px auto' }}>
           <>Don&apos;t have an account?</>
-          <Link href="/auth/signup" style={{ color: '#0070f3' }}>
+          <Link href="/auth/signup" style={{ color: '#0070f3', cursor: 'pointer' }}>
             Sign Up
           </Link>
         </div>
