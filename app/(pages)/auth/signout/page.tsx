@@ -11,7 +11,7 @@ export default async function AuthPage() {
             width: '100%',
             padding: '15px',
             marginTop: '1rem',
-            border: '1px solid',
+            border: '1px solid transparent',
             cursor: 'pointer'
           }}
         >

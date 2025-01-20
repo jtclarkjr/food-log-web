@@ -1,5 +1,6 @@
-import AppleIcon from '@mui/icons-material/Apple'
+import Image from 'next/image'
 import { signInWithApple } from '../actions'
+import AppleIcon from '@public/icons/apple.svg'
 
 export default function AppleSignInButton() {
   return (
@@ -22,8 +23,8 @@ export default function AppleSignInButton() {
         }}
         formAction={signInWithApple}
       >
-        <AppleIcon style={{ marginRight: '8px' }} />
-        Sign in with Apple
+        <Image priority src={AppleIcon} alt="apple" width={20} height={20} />
+        <div style={{ marginLeft: '8px' }}>Sign in with Apple</div>
       </button>
     </form>
   )
