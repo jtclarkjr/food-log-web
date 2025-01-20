@@ -49,7 +49,7 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data)
 
   if (error) {
-    redirect('/auth/login?error=signup')
+    redirect('/auth/signup?error=signup')
   }
 
   revalidatePath('/food', 'layout')
