@@ -101,7 +101,7 @@ export const updateFood = async (formData: FormData): Promise<void> => {
   if (currentImage && imageFile?.name === 'undefined') {
     imageUrl = currentImage
   } else if (imageFile) {
-    imageUrl = await uploadImage(imageFile)
+    imageUrl = await uploadImage(imageFile, currentImage)
     if (!imageUrl) {
       console.error('Image upload failed')
       throw new Error('Image upload failed')
@@ -159,7 +159,17 @@ export const deleteFood = async (formData: FormData): Promise<void> => {
   redirect('/food')
 }
 
-export const uploadImage = async (file: File): Promise<string | null> => {
+const deleteCurrentImage = async (currentImage: string): Promise<void | null> => {
+  const supabase = await createClient()
+  const { error } = await supabase.storage.from('images').remove([`public/${currentImage}`])
+
+  if (error) {
+    console.error('Error deleting image:', error)
+    return null
+  }
+}
+
+export const uploadImage = async (file: File, oldFileUrl?: string): Promise<string | null> => {
   const supabase = await createClient()
   const {
     data: { user }
@@ -175,6 +185,16 @@ export const uploadImage = async (file: File): Promise<string | null> => {
   if (error) {
     console.error('Error uploading image:', error)
     return null
+  }
+
+  if (oldFileUrl) {
+    const parts = oldFileUrl.split('/')
+    const currentImageFile = parts[parts.length - 1]
+    await deleteCurrentImage(currentImageFile)
+    if (error) {
+      console.error('Error delete image:', error)
+      return null
+    }
   }
 
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
