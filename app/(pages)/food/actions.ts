@@ -159,17 +159,17 @@ export const deleteFood = async (formData: FormData): Promise<void> => {
   redirect('/food')
 }
 
-const deleteCurrentImage = async (currentImage: string): Promise<void | null> => {
+const deleteCurrentImage = async (currentImage: string): Promise<void> => {
   const supabase = await createClient()
   const { error } = await supabase.storage.from('images').remove([`public/${currentImage}`])
 
   if (error) {
-    console.error('Error deleting image:', error)
-    return null
+    console.error('Error deleting image from storage:', error)
+    throw new Error('Image removal failed')
   }
 }
 
-export const uploadImage = async (file: File, oldFileUrl?: string): Promise<string | null> => {
+export const uploadImage = async (file: File, oldFileUrl?: string): Promise<string> => {
   const supabase = await createClient()
   const {
     data: { user }
@@ -184,17 +184,13 @@ export const uploadImage = async (file: File, oldFileUrl?: string): Promise<stri
 
   if (error) {
     console.error('Error uploading image:', error)
-    return null
+    throw new Error('Image upload failed')
   }
 
   if (oldFileUrl) {
     const parts = oldFileUrl.split('/')
     const currentImageFile = parts[parts.length - 1]
     await deleteCurrentImage(currentImageFile)
-    if (error) {
-      console.error('Error delete image:', error)
-      return null
-    }
   }
 
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
