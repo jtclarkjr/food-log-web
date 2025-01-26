@@ -16,6 +16,7 @@ const FoodIdContent = ({ id }: { id: string }) => {
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <form style={{ marginTop: '1rem' }} action={deleteFood}>
         <input type="hidden" name="id" value={food.id} />
+        <input type="hidden" name="image" value={food.image as string} />
         <Button variant="delete" />
       </form>
 

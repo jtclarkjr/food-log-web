@@ -137,6 +137,7 @@ export const updateFood = async (formData: FormData): Promise<void> => {
 
 export const deleteFood = async (formData: FormData): Promise<void> => {
   const id = Number(formData.get('id'))
+  const image = formData.get('image') as string
   const supabase = await createClient()
   const {
     data: { user }
@@ -144,6 +145,12 @@ export const deleteFood = async (formData: FormData): Promise<void> => {
   // redirects to unauthorized if no user
   if (!user) unauthorized()
   const { error, count } = await supabase.from('Food').delete().eq('id', id)
+
+  if (image) {
+    const parts = image.split('/')
+    const currentImageFile = parts[parts.length - 1]
+    await deleteCurrentImage(currentImageFile)
+  }
 
   if (error) {
     console.error('Error deleting food:', error)
@@ -162,7 +169,6 @@ export const deleteFood = async (formData: FormData): Promise<void> => {
 const deleteCurrentImage = async (currentImage: string): Promise<void> => {
   const supabase = await createClient()
   const { error } = await supabase.storage.from('images').remove([`public/${currentImage}`])
-
   if (error) {
     console.error('Error deleting image from storage:', error)
     throw new Error('Image removal failed')
