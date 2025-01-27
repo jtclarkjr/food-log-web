@@ -182,22 +182,33 @@ export const uploadImage = async (file: File, oldFileUrl?: string): Promise<stri
   } = await supabase.auth.getUser()
   if (!user) throw new Error('User not authenticated')
 
-  const fileName = `public/${randomUUID().toUpperCase()}.jpg`
-  const { error } = await supabase.storage.from('images').upload(fileName, file, {
-    cacheControl: '3600',
-    upsert: false
-  })
-
-  if (error) {
-    console.error('Error uploading image:', error)
-    throw new Error('Image upload failed')
-  }
+  let fileName: string = ''
 
   if (oldFileUrl) {
     const parts = oldFileUrl.split('/')
     const currentImageFile = parts[parts.length - 1]
-    await deleteCurrentImage(currentImageFile)
+    fileName = `public/${currentImageFile}`
+    const { error } = await supabase.storage.from('images').update(fileName, file, {
+      cacheControl: '3600',
+      upsert: false
+    })
+    if (error) {
+      console.error('Error updating image:', error)
+      throw new Error('Image update failed')
+    }
+  } else {
+    fileName = `public/${randomUUID().toUpperCase()}.jpg`
+    const { error } = await supabase.storage.from('images').upload(fileName, file, {
+      cacheControl: '3600',
+      upsert: false
+    })
+    if (error) {
+      console.error('Error uploading image:', error)
+      throw new Error('Image upload failed')
+    }
   }
+
+  revalidatePath('/food', 'layout')
 
   const { data } = supabase.storage.from('images').getPublicUrl(fileName)
   return data.publicUrl

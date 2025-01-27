@@ -37,8 +37,8 @@ const FoodLogContent = () => {
                         priority
                         src={food.image}
                         alt={food.food_name || 'food'}
-                        height={200}
-                        width={200}
+                        height={432}
+                        width={324}
                       />
                     </div>
                   )}

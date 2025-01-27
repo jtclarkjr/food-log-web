@@ -16,7 +16,7 @@ const FoodIdContent = ({ id }: { id: string }) => {
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
       <form style={{ marginTop: '1rem' }} action={deleteFood}>
         <input type="hidden" name="id" value={food.id} />
-        <input type="hidden" name="image" value={food.image as string} />
+        <input type="hidden" name="image" value={food.image || ''} />
         <Button variant="delete" />
       </form>
 
@@ -104,7 +104,7 @@ const FoodIdContent = ({ id }: { id: string }) => {
                   defaultValue={food.image}
                 />
                 <p>Current image:</p>
-                <Image priority src={food.image} alt={food.image} height={200} width={200} />
+                <Image priority src={food.image} alt={food.image} height={432} width={324} />
               </>
             )}
           </div>
