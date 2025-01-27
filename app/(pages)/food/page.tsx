@@ -14,7 +14,7 @@ const FoodLogContent = () => {
       </Link>
 
       <main className="container">
-        <h1>Food Log</h1>
+        <h1>Food log</h1>
         {!foods || foods.length === 0 ? (
           <p>No foods added yet</p>
         ) : (

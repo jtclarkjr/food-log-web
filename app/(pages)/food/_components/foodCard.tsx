@@ -43,13 +43,13 @@ const FoodCard: React.FC<TFoodCardProps> = ({ food }) => {
             'Unknown Restaurant'}
         </p>
         <p>
-          <strong>Calories:</strong> {food.calories || '0kcal'}
+          <span className="date">Calories:</span> {food.calories || '0kcal'}
         </p>
         <p>
-          <strong>Protein:</strong> {food.protein || '0g'}
+          <span className="date">Protein:</span> {food.protein || '0g'}
         </p>
         <p>
-          <strong>Rating:</strong> {food.rating || 0}
+          <span className="date">Rating:</span> {food.rating || 0}
         </p>
         <p className="date">{formattedDate(food.created_at)}</p>
         {food.opinion && <p className="opinion">{food.opinion}</p>}
