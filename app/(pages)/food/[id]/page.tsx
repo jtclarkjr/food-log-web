@@ -104,7 +104,14 @@ const FoodIdContent = ({ id }: { id: string }) => {
                   defaultValue={food.image}
                 />
                 <p>Current image:</p>
-                <Image priority src={food.image} alt={food.image} height={432} width={324} />
+                <Image
+                  priority
+                  src={food.image}
+                  alt={food.image}
+                  width={250}
+                  height={0}
+                  layout="intrinsic"
+                />
               </>
             )}
           </div>

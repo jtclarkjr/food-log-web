@@ -101,27 +101,6 @@ h1, h2, p::first-letter {
   margin-top: 20px
 }
 
-.food-card {
-  background-color: 'gray';
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  flex: 1 1 100%; /* Default to full width on mobile */
-  max-width: 100%;
-  cursor: 'pointer'
-}
-
-.food-card h2 {
-  margin-bottom: 10px;
-  font-size: 1.5em;
-}
-
-.food-card p {
-  font-size: 1em;
-  line-height: 1.5;
-}
-
 .fab {
   position: fixed;
   bottom: 20px;
@@ -214,6 +193,47 @@ h1, h2, p::first-letter {
   width: 200px;
   margin-bottom: 0.5rem;
 }
+
+.food-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.image-container {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.food-details {
+  margin-left: 10px;
+}
+
+.food-details h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.food-details .restaurant,
+.food-details .date {
+  font-size: 0.875rem;
+  color: #6b7280; /* Tailwind CSS 'text-gray-500' */
+}
+
+.food-details p {
+  margin: 0.25rem 0;
+}
+
+.food-details .opinion {
+  margin-top: 0.5rem;
+}
+
 
 :root {
   --apple-button-bg: black;
