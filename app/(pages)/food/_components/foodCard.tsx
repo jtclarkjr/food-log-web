@@ -13,7 +13,8 @@ const FoodCard: React.FC<TFoodCardProps> = ({ food }) => {
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
-      hour12: true // Set to false for 24-hour time
+      hour12: true, // Set to false for 24-hour time
+      timeZone: 'JST'
     }
     return new Date(dateString).toLocaleDateString(undefined, options)
   }
