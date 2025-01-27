@@ -9,7 +9,7 @@ const FoodCard: React.FC<TFoodCardProps> = ({ food }) => {
   const formattedDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
