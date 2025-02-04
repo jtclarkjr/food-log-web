@@ -9,11 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@opentelemetry/api": "^1.9.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.14",
     "@vercel/analytics": "^1.4.1",
-    "@vercel/otel": "^1.10.1",
     "next": "15.1.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
