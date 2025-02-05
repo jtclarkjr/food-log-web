@@ -4,6 +4,8 @@ import { IFood } from '@/types'
 import Button from '../_components/button'
 import Image from 'next/image'
 import { use, Suspense } from 'react'
+import { after } from 'next/server'
+import { track } from '@vercel/analytics/server'
 
 const FoodIdContent = ({ id }: { id: string }) => {
   const food: IFood | null = use(fetchFoodById(id))
@@ -11,6 +13,12 @@ const FoodIdContent = ({ id }: { id: string }) => {
   if (!food) {
     return <p>Food not found</p>
   }
+
+  after(() => {
+    track('Updated', {
+      id: food.id || ''
+    })
+  })
 
   return (
     <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
