@@ -133,7 +133,7 @@ export const updateFood = async (formData: FormData): Promise<void> => {
     forbidden()
   }
   reportValue('food', true)
-  await track('Update', { id: food.id || '' }, { flags: ['food'] })
+  await track('Update', { id: id || '' }, { flags: ['food'] })
   revalidatePath('/food', 'layout')
   redirect('/food')
 }
