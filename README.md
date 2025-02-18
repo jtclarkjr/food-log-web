@@ -1,4 +1,4 @@
-Mobile-first web app. Alternative to the native mobile app (iOS)
+Mobile-first web app. Alternative to the native mobile [app](https://github.com/jtclarkjr/FoodLog) (iOS)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
