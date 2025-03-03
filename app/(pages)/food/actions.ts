@@ -5,7 +5,6 @@ import { forbidden, redirect, unauthorized } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { randomUUID } from 'crypto'
 import { track } from '@vercel/analytics/server'
-import { reportValue } from '@vercel/flags'
 
 export const fetchFoods = async (): Promise<IFood[] | null> => {
   const supabase = await createClient()
@@ -128,11 +127,11 @@ export const updateFood = async (formData: FormData): Promise<void> => {
     throw error
   }
 
-  if (count === 0) {
+  if (!count) {
     console.warn('No rows updated, possible invalid ID or insufficient permissions')
     forbidden()
   }
-  reportValue('food', true)
+
   await track('Update', { id: id || '' }, { flags: ['food'] })
   revalidatePath('/food', 'layout')
   redirect('/food')
