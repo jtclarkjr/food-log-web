@@ -10,7 +10,7 @@ const FoodLogContent = () => {
   return (
     <div className="food-log">
       <Link href="/auth/signout">
-        <div className="signout-button">Signout</div>
+        <div className="signout-button">Sign out</div>
       </Link>
 
       <main className="container">
